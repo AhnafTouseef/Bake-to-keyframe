@@ -10,6 +10,7 @@ bl_info = {
 
 
 import bpy
+from bpy.props import IntProperty
 
 
 #Define required functions
@@ -78,22 +79,43 @@ def Baked_Keyframe(Passed_Current_Frame, Passed_Start_Frame_Parameter, Passed_En
         go_to_frame(frame_current)
         
         
-class BAKE_OT_ToKeyframe(bpy.types.operator):
+class BAKE_OT_ToKeyframe(bpy.types.Operator):
     bl_idname = "poke.mon"
     bl_label = "POKE.MON"
     bl_description = "Create baked keyframe"
     bl_options = {'REGISTER', 'UNDO'}
     
     
-    frame_current= bpy.data.scenes["Scene"].frame_current 
-    frame_start = bpy.data.scenes["Scene"].frame_start    
-    frame_end = bpy.data.scenes["Scene"].frame_end        
-    frame_skip = 10
+    # frame_current : IntProperty(
+    #     name = "A",
+    #     description = "Get current frame",
+    #     default = 100)
+    
+    frame_start : IntProperty(
+        name = "B",
+        description = "Get start fram",
+        default = 100)
+    
+    frame_end : IntProperty(
+        name = "C",
+        description = "Get end fram",
+        default = 250)
+    
+    frame_skip : IntProperty(
+        name = "D",
+        description = "Get skip fram amount",
+        default = 10)
     
     
     def execute(self, context):
+
+        frame_current= bpy.data.scenes["Scene"].frame_current 
+        # frame_start = bpy.data.scenes["Scene"].frame_start    
+        # frame_end = bpy.data.scenes["Scene"].frame_end        
+        # frame_skip = 10
+
         preparation(self.frame_start, self.frame_end)
-        Baked_Keyframe(self.frame_current, self.frame_start, self.frame_end, self.frame_skip)
+        Baked_Keyframe(frame_current, self.frame_start, self.frame_end, self.frame_skip)
         self.report({"INFO"}, "Finished keframing")
         return {'FINISHED'}
         
