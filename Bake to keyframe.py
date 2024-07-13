@@ -94,7 +94,7 @@ class BAKE_OT_ToKeyframe(bpy.types.Operator):
     frame_start : IntProperty(
         name = "B",
         description = "Get start fram",
-        default = 100)
+        default = 1)
     
     frame_end : IntProperty(
         name = "C",
@@ -119,14 +119,40 @@ class BAKE_OT_ToKeyframe(bpy.types.Operator):
         self.report({"INFO"}, "Finished keframing")
         return {'FINISHED'}
         
+
+class REAL_PT_testpanel(bpy.types.Panel):
+    bl_space_type = "VIEW_3D"
+    bl_context = "objectmode"
+    bl_region_type = "UI"
+    bl_label = "Bakeing to keyframe"
+    bl_category = "Bake to keyframe"
+
+    def draw(self, context):     
+
+        layout = self.layout
         
+        col = layout.column(align=True)
+        col.scale_y=3
+        col.operator('poke.mon' , text ='Bake to Keyframe', icon='KEYTYPE_KEYFRAME_VEC')
+        col.operator('object.shape_key_remove' , text ='Delete Keyframes', icon='EVENT_D')
+        
+        col = layout.column(align=True)
+        col = layout.column(align=True)
+        col = layout.column(align=True)
+        col = layout.column(align=True)
+        col.operator("ptcache.bake_all", text="Bake").bake = True
+        col.operator("ptcache.free_bake_all", text="Delete All Bakes")
+
+
+
 def register():
     bpy.utils.register_class(BAKE_OT_ToKeyframe)
-
+    bpy.utils.register_class(REAL_PT_testpanel)
 
 def unregister():
     bpy.utils.unregister_class(BAKE_OT_ToKeyframe)
-    
+    bpy.utils.unregister_class(REAL_PT_testpanel)
+
 if __name__ == "__main__":
     register()
         
