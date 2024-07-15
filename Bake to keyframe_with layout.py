@@ -78,7 +78,7 @@ def Baked_Keyframe(Passed_Current_Frame, Passed_Start_Frame_Parameter, Passed_En
         go_to_frame(frame_current)
         
         
-class bake_settings(bpy.types.PropertyGroup):row
+class bake_settings(bpy.types.PropertyGroup):
     frame_start : IntProperty(
         name = "Start",
         description = "Get start frame",
