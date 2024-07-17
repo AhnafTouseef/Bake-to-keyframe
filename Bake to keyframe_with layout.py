@@ -114,10 +114,13 @@ class BAKE_OT_ToKeyframe(bpy.types.Operator):
         # frame_start = bpy.data.scenes["Scene"].frame_start    
         # frame_end = bpy.data.scenes["Scene"].frame_end        
         # frame_skip = 10
-
-        preparation(props.frame_start, props.frame_end)
-        Baked_Keyframe(frame_current, props.frame_start, props.frame_end, props.frame_skip)
-        self.report({"INFO"}, "Finished keframing")
+        try:
+            preparation(props.frame_start, props.frame_end)
+            Baked_Keyframe(frame_current, props.frame_start, props.frame_end, props.frame_skip)
+            self.report({"INFO"}, "Finished keframing")
+        except Exception:
+            self.report({"WARNING"}, 'No "Cloth modifier" on selected object')
+        
         return {'FINISHED'}
         
 
@@ -164,3 +167,4 @@ def unregister():
 
 if __name__ == "__main__":
     register()
+        
