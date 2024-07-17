@@ -46,8 +46,8 @@ def preparation(Passed_Start_Frame_Parameter, Passed_End_Frame_Parameter):
         bpy.context.scene.frame_current = i+1
         
         #Set up shape key interpolation mode        
-    bpy.context.object.active_shape_key_index = 0   
-    bpy.data.shape_keys["Key"].use_relative = False
+    bpy.context.object.active_shape_key_index = 1   
+    bpy.context.active_object.data.shape_keys.use_relative = False
     
     
 def Baked_Keyframe(Passed_Current_Frame, Passed_Start_Frame_Parameter, Passed_End_Frame_Parameter, Passed_Frame_Skip_Parameter):
@@ -56,11 +56,13 @@ def Baked_Keyframe(Passed_Current_Frame, Passed_Start_Frame_Parameter, Passed_En
     frame_start   = Passed_Start_Frame_Parameter
     frame_end     = Passed_End_Frame_Parameter
     frame_skip    = Passed_Frame_Skip_Parameter
+
+    Key = bpy.context.active_object.data.shape_keys.name
     
                 #Interpolation keyframe method                       
     if frame_skip == 0:                                              
         insert_keyframe(frame_start)                                 
-        bpy.data.shape_keys["Key"].eval_time = (frame_end*10)        
+        bpy.data.shape_keys[Key].eval_time = (frame_end*10)        
         insert_keyframe(frame_end)                                   
         bpy.context.object.modifiers["Cloth"].show_viewport = False  
         go_to_frame(frame_current)
@@ -71,7 +73,7 @@ def Baked_Keyframe(Passed_Current_Frame, Passed_Start_Frame_Parameter, Passed_En
         go_to_frame(frame_start)                                                                         
         obj = bpy.context.object.data.shape_keys                                                         
         while bpy.data.scenes["Scene"].frame_current <= frame_end:                                       
-            bpy.data.shape_keys["Key"].eval_time = (bpy.data.scenes["Scene"].frame_current*10)           
+            bpy.data.shape_keys[Key].eval_time = (bpy.data.scenes["Scene"].frame_current*10)           
             obj.keyframe_insert("eval_time")                                                             
             bpy.data.scenes["Scene"].frame_current += frame_skip                                         
         bpy.context.object.modifiers["Cloth"].show_viewport = False                                      
@@ -162,4 +164,3 @@ def unregister():
 
 if __name__ == "__main__":
     register()
-        
