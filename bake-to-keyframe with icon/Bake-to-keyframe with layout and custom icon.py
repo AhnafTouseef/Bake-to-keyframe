@@ -16,10 +16,15 @@ import os
 icons = bpy.utils.previews.new()
 icons_dir = os.path.dirname(__file__)
 
-icons.load(name='BAKE',  path= os.path.join(icons_dir, 'bake.png'), path_type='IMAGE')
-icons.load(name='DEL',   path= os.path.join(icons_dir, 'del.png'), path_type='IMAGE')
-icons.load(name='ADD',   path= os.path.join(icons_dir, 'add.png'), path_type='IMAGE')
-icons.load(name='RECAL', path= os.path.join(icons_dir, 'recal.png'), path_type='IMAGE')
+    icon_list = ['bake.png', 'del.png', 'add.png', 'recal.png']
+
+    for icon_names in icon_list:
+        icons.load(name = icon_names.upper().partition('.')[0], path = os.path.join(icons_dir, icon_names), path_type='IMAGE')
+
+    # icons.load(name='BAKE',  path= os.path.join(icons_dir, 'bake.png'), path_type='IMAGE')
+    # icons.load(name='DEL',   path= os.path.join(icons_dir, 'del.png'), path_type='IMAGE')
+    # icons.load(name='ADD',   path= os.path.join(icons_dir, 'add.png'), path_type='IMAGE')
+    # icons.load(name='RECAL', path= os.path.join(icons_dir, 'recal.png'), path_type='IMAGE')
 
 
 # Define required utility functions
