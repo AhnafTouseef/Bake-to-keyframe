@@ -172,6 +172,7 @@ class RECALCULATE_OT_Keyframe(bpy.types.Operator):
 # Define panel layout clsass
 class REAL_PT_testpanel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
+    bl_idname = "MY_PT_BakeToKeyframePanel"
     bl_context = "objectmode"
     bl_region_type = "UI"
     bl_label = "Baking to keyframe"
